@@ -1,6 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+typedef struct			s_ligne
+{
+	unsigned long	tab[64];
+	int				start[64];
+	int				end[64];
+}						t_ligne;
+
 int		*get_nb_floors(int num, int min, int rest)
 {
 	int		i;
@@ -59,7 +66,7 @@ int		len_last(int *tab, int num)
 	return ((i * 2 + 1) + part_two);
 }
 
-unsigned long			*print_fillstantua(int *tab, int num, int last_len)
+t_ligne			print_fillstantua(int *tab, int num, int last_len)
 {
 	int		i;
 	int		j;
@@ -67,15 +74,20 @@ unsigned long			*print_fillstantua(int *tab, int num, int last_len)
 	int		c_floor;
 	int		t_floor;
 	int		part_two;
-	unsigned long		*result;
+	t_ligne		result;
 
 	i = 0;
 	t_floor = -1;
 	part_two = 0;
 	tmp = 0;
-	result = (unsigned long *)malloc(sizeof(unsigned long) * 65);
+//	result = (unsigned long *)malloc(sizeof(unsigned long) * 65);
 	while (tmp < 64)
-		result[tmp++] = 0;
+	{
+		result.tab[tmp] = 0;
+		result.start[tmp] = 0;
+		result.end[tmp] = 0;
+		tmp++;
+	}
 	while (i < num)
 	{
 		j = 0;
@@ -94,10 +106,12 @@ unsigned long			*print_fillstantua(int *tab, int num, int last_len)
 		tmp = -1;
 		while (++tmp < num_pts)
 		{
-			result[i] += 1;
-			result[i] <<= 1;
+			result.tab[i] += 1;
+			result.tab[i] <<= 1;
 		}
-		result[i] <<= ((last_len - num_pts) / 2) - 1;
+		result.tab[i] <<= ((last_len - num_pts) / 2) - 1;
+		result.start[i] = ((last_len - num_pts) / 2) - 1;
+		result.end[i] = result.start[i] + num_pts - 1;
 		/* Fin print */
 		i++;
 	}
@@ -119,12 +133,39 @@ void	print_bits(unsigned long *tab, int h)
 			if ((tab[i] & 1) == 1)
 				write(1, "1", 1);
 			else
-				write(1, "0", 1);
+				write(1, ".", 1);
 			tab[i] >>= 1;
 			j++;
 		}
 		j = 0;
 		write(1, "\n", 1);
+		i++;
+	}
+}
+
+void	print_sas(t_ligne sct, int num)
+{
+	int		i;
+	int		j;
+
+	i = 0;
+	j = 0;
+	while (i < num)
+	{
+		while (j <= sct.end[i])
+		{
+			if (j < sct.start[i])
+				write(1, " ", 1);
+			if (j == sct.start[i])
+				write(1, "/", 1);
+			if (j >= sct.start[i])
+				write(1, "*", 1);
+			if (j == sct.end[i])
+				write(1, "\\", 1);
+			j++;
+		}
+		write(1, "\n", 1);
+		j = 0;
 		i++;
 	}
 }
@@ -135,6 +176,7 @@ int		main(int ac, char **av)
 	int		num;
 	int		l_len;
 	unsigned long		*result;
+	t_ligne		stc;
 
 	if (ac == 2)
 		num = atoi(av[1]);
@@ -142,8 +184,9 @@ int		main(int ac, char **av)
 		return (0);
 	tab = get_nb_floors(num, 0, 0);
 	l_len = len_last(tab, num);
-	result = print_fillstantua(tab, num, l_len);
-	print_bits(result, num);
+	stc = print_fillstantua(tab, num, l_len);
+	print_bits(stc.tab, num);
+	print_sas(stc, num);
 	free(tab);
 	free(result);
 	return (0);
