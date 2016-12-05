@@ -51,5 +51,6 @@ int		main(void)
 		printf("\n\n");
 		free(tab);
 	}
+	printf("%lu\n", sizeof(double));
 	return (0);
 }
