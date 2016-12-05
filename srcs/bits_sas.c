@@ -1,12 +1,7 @@
+#include "fillit.h"
 #include <stdio.h>
 #include <stdlib.h>
-
-typedef struct			s_ligne
-{
-	unsigned long	tab[64];
-	int				start[64];
-	int				end[64];
-}						t_ligne;
+#include <unistd.h>
 
 int		*get_nb_floors(int num, int min, int rest)
 {
@@ -111,14 +106,13 @@ t_ligne			print_fillstantua(int *tab, int num, int last_len)
 		}
 		result.tab[i] <<= ((last_len - num_pts) / 2) - 1;
 		result.start[i] = ((last_len - num_pts) / 2) - 1;
-		result.end[i] = result.start[i] + num_pts - 1;
+		result.end[i] = result.start[i] + num_pts + 1;
 		/* Fin print */
 		i++;
 	}
 	return (result);
 }
 
-#include <unistd.h>
 void	print_bits(unsigned long *tab, int h)
 {
 	int		i;
@@ -170,6 +164,23 @@ void	print_sas(t_ligne sct, int num)
 	}
 }
 
+t_ligne		make_sas_mask(int num)
+{
+	int		*tab;
+	int		l_len;
+//	unsigned long		*result;
+	t_ligne		stc;
+
+	tab = get_nb_floors(num, 0, 0);
+	l_len = len_last(tab, num);
+	stc = print_fillstantua(tab, num, l_len);
+//	print_bits(stc.tab, num);
+//	print_sas(stc, num);
+	free(tab);
+//	free(result);
+	return (stc);
+}
+/*
 int		main(int ac, char **av)
 {
 	int		*tab;
@@ -191,3 +202,4 @@ int		main(int ac, char **av)
 	free(result);
 	return (0);
 }
+*/
