@@ -95,7 +95,7 @@ int							ft_error(int error_nb);
 unsigned short				ft_bits(char *s);
 t_list						*ft_new_fill(char *file);
 int							solver(unsigned int *tab, t_list *lst, int size, t_ligne sct);
-void						ft_print_map(t_list *lst, int size, t_ligne sct);
+void						ft_print_map(t_list *lst, int size, t_ligne sct, int len_last);
 int							ft_strlen(char *str);
 void						ft_list_init(t_list *lst);
 unsigned int				*ft_del_tetris(unsigned int *tab, t_list *lst);

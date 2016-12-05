@@ -12,14 +12,14 @@
 
 #include "fillit.h"
 
-static char		**ft_make_char_map(int size, t_ligne sct)
+static char		**ft_make_char_map(int size, t_ligne sct, int len_last)
 {
 	char	**map;
 	int		b_size;
 	int		i;
 
 	i = 0;
-	b_size = size;
+	b_size = len_last - 1;
 	size = size / 2 - 1;
 	map = (char **)malloc(sizeof(char *) * size + 1);
 	map[size + 1] = NULL;
@@ -58,7 +58,7 @@ static char		**ft_init_map(t_list *lst, char **map)
 	return (map);
 }
 
-static void		ft_print_twod(char **map, int size)
+static void		ft_print_twod(char **map, int size, int len_last)
 {
 	int		i;
 	int		j;
@@ -66,9 +66,9 @@ static void		ft_print_twod(char **map, int size)
 
 	i = 0;
 	j = 0;
-	b_size = size + 1;
+	b_size = len_last + 1;
 	size /= 2;
-	while (i <= size)
+	while (i < size)
 	{
 		write(1, map[i], b_size);
 		write(1, "\n", 1);
@@ -76,14 +76,13 @@ static void		ft_print_twod(char **map, int size)
 	}
 }
 
-void			ft_print_map(t_list *lst, int size, t_ligne sct)
+void			ft_print_map(t_list *lst, int size, t_ligne sct, int len_last)
 {
 	char		**map;
 
 	size *= 2;
-	map = ft_make_char_map(size, sct);
+	map = ft_make_char_map(size, sct, len_last);
 	map = ft_init_map(lst, map);
-	ft_print_twod(map, size);
-	printf("%d\n", size);
+	ft_print_twod(map, size, len_last);
 	free(map);
 }

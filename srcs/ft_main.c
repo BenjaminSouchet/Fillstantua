@@ -32,6 +32,6 @@ int				main(int argc, char **argv)
 	sct = make_sas_mask(1);
 	size = solver(tab, lst->begin, 1, sct);
 	sct = make_sas_mask(size);
-	ft_print_map(lst->begin, size, sct);
+	ft_print_map(lst->begin, size, sct, len_last(get_nb_floors(size, 0, 0), size));
 	return (0);
 }
