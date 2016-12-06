@@ -41,7 +41,7 @@ int		calc_size_door(int *tab)
 	return (size_door);
 }
 
-void	print_line(int *tab, int nb_pts, int size_door, int line, int lines)
+void	print_line(int nb_pts, int size_door, int line, int lines)
 {
 	int		pos;
 	int		start;
@@ -87,7 +87,7 @@ void	print_fillstantua(int *tab, int wlen, int num, int line)
 		while (++pos < ((wlen - nb_pts) / 2))
 			write(1, " ", 1);
 		write(1, "/", 1);
-		print_line(tab, nb_pts, size_door, line, num);
+		print_line(nb_pts, size_door, line, num);
 	}
 }
 
