@@ -82,7 +82,7 @@ void	print_fillstantua(int *tab, int wlen, int num, int line)
 	while (++line < num && (pos = -1) != 0)
 	{
 		if (line == tab[c_floor] && ++c_floor)
-			part_two += (((c_floor + 1) / 2) * 2);
+			part_two += ((((c_floor + 1) / 2) * 2) + 2);
 		nb_pts = (line * 2 + 1) + part_two;
 		while (++pos < ((wlen - nb_pts) / 2))
 			write(1, " ", 1);
@@ -106,7 +106,7 @@ int		main(int ac, char **av)
 	wlen = 0;
 	tab = calc_nb_floors(num, 0, 0, &nb_floors);
 	while (++ac < nb_floors)
-		wlen += (((ac + 1) / 2) * 2);
+		wlen += ((((ac + 1) / 2) * 2) + 2);
 	wlen += ((num - 1) * 2 + 1);
 	print_fillstantua(tab, wlen, num, -1);
 	free(tab);
