@@ -6,7 +6,7 @@
 /*   By: gmonein <gmonein@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/20 07:14:20 by gmonein           #+#    #+#             */
-/*   Updated: 2016/12/03 01:31:19 by gmonein          ###   ########.fr       */
+/*   Updated: 2016/12/07 05:35:20 by gmonein          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ typedef struct			s_ligne
 	unsigned long	tab[64];
 	int				start[64];
 	int				end[64];
+	int				d_start[64];
+	int				d_end[64];
 }						t_ligne;
 
 typedef struct				s_data
@@ -94,8 +96,10 @@ int							main(int argc, char **argv);
 int							ft_error(int error_nb);
 unsigned short				ft_bits(char *s);
 t_list						*ft_new_fill(char *file);
-int							solver(unsigned int *tab, t_list *lst, int size, t_ligne sct);
-void						ft_print_map(t_list *lst, int size, t_ligne sct, int len_last);
+int							solver_sas(unsigned int *tab, t_list *lst, int size, t_ligne sct);
+int							solver(unsigned int *tab, t_list *lst, int size);
+void						ft_print_map_sas(t_list *lst, int size, t_ligne sct);
+void						ft_print_map(t_list *lst, int size);
 int							ft_strlen(char *str);
 void						ft_list_init(t_list *lst);
 unsigned int				*ft_del_tetris(unsigned int *tab, t_list *lst);
@@ -103,7 +107,12 @@ unsigned int				*ft_erase_map(unsigned int *tab);
 int							ft_map_min(t_list *lst);
 void						ft_bzero(void *s, size_t n);
 t_ligne		make_sas_mask(int num);
-int		*get_nb_floors(int num, int min, int resti);
-int		len_last(int *tab, int num);
+int			*get_nb_floors(int num, int min, int resti);
+int			len_last(int *tab, int num);
+void		t_sastantua(int num, t_ligne *map);
+void		t_print_fillstantua(int *tab, int wlen, int num, int line, t_ligne *map);
+void		print_line(int nb_pts, int size_door, int line, int lines, t_ligne *map);
+int			calc_size_door(int *tab);
+int			*calc_nb_floors(int num, int min, int rest, int *nb_floors);
 
 #endif
