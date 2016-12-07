@@ -6,7 +6,7 @@
 /*   By: gmonein <gmonein@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/27 01:26:19 by gmonein           #+#    #+#             */
-/*   Updated: 2016/12/03 01:52:17 by gmonein          ###   ########.fr       */
+/*   Updated: 2016/12/07 03:55:28 by gmonein          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,6 @@ static int			ft_can_i(UI *tab, t_list *tetris, int size)
 
 static int			ft_can_i_sas(UI *tab, t_list *tetris, int size, t_ligne mask)
 {
-	if ((tetris->x + tetris->data.x1) <= mask.start[tetris->y + tetris->data.y1]
-	|| ((tetris->x + tetris->data.x2) <= mask.start[tetris->y + tetris->data.y2])
-	|| ((tetris->x + tetris->data.x3) <= mask.start[tetris->y + tetris->data.y3])
-	|| ((tetris->x + tetris->data.x4) <= mask.start[tetris->y + tetris->data.y4]))
-		return (-3);
 	if ((tetris->x + tetris->data.x1) >= mask.end[tetris->y + tetris->data.y1]
 	|| ((tetris->x + tetris->data.x2) >= mask.end[tetris->y + tetris->data.y2])
 	|| ((tetris->x + tetris->data.x3) >= mask.end[tetris->y + tetris->data.y3])
@@ -44,13 +39,22 @@ static int			ft_can_i_sas(UI *tab, t_list *tetris, int size, t_ligne mask)
 		return (-2);
 	if (tetris->y + tetris->data.height > size)
 		return (-1);
-	if ((tab[tetris->y] & (tetris->itetri[0] >> tetris->x)) > 0)
-		return (0);
-	if ((tab[tetris->y + 1] & (tetris->itetri[1] >> tetris->x)) > 0)
-		return (0);
-	if ((tab[tetris->y + 2] & (tetris->itetri[2] >> tetris->x)) > 0)
-		return (0);
-	if ((tab[tetris->y + 3] & (tetris->itetri[3] >> tetris->x)) > 0)
+	if (((tab[tetris->y] & (tetris->itetri[0] >> tetris->x)) > 0)
+	|| ((tab[tetris->y + 1] & (tetris->itetri[1] >> tetris->x)) > 0)
+	|| ((tab[tetris->y + 2] & (tetris->itetri[2] >> tetris->x)) > 0)
+	|| ((tab[tetris->y + 3] & (tetris->itetri[3] >> tetris->x)) > 0)
+	|| ((tetris->x + tetris->data.x1) <= mask.start[tetris->y + tetris->data.y1]
+	|| ((tetris->x + tetris->data.x2) <= mask.start[tetris->y + tetris->data.y2])
+	|| ((tetris->x + tetris->data.x3) <= mask.start[tetris->y + tetris->data.y3])
+	|| ((tetris->x + tetris->data.x4) <= mask.start[tetris->y + tetris->data.y4])
+	|| (((tetris->x + tetris->data.x1) >= mask.d_start[tetris->y + tetris->data.y1])
+		&& ((tetris->x + tetris->data.x1) <= mask.d_end[tetris->y + tetris->data.y1])))
+	|| (((tetris->x + tetris->data.x2) >= mask.d_start[tetris->y + tetris->data.y2])
+		&& ((tetris->x + tetris->data.x2) <= mask.d_end[tetris->y + tetris->data.y2]))
+	|| (((tetris->x + tetris->data.x3) >= mask.d_start[tetris->y + tetris->data.y3])
+		&& ((tetris->x + tetris->data.x3) <= mask.d_end[tetris->y + tetris->data.y3]))
+	|| (((tetris->x + tetris->data.x4) >= mask.d_start[tetris->y + tetris->data.y4])
+		&& ((tetris->x + tetris->data.x4) <= mask.d_end[tetris->y + tetris->data.y4])))
 		return (0);
 	return (1);
 }
@@ -117,7 +121,7 @@ int					solver(unsigned int *tab, t_list *lst, int size, t_ligne sct)
 		}
 		if (lst->past == NULL && lst->last_pos == 1 && size++)
 		{
-			sct = make_sas_mask(size);
+			t_sastantua(size, &sct);
 			tab = ft_erase_map(tab);
 			ft_list_init(lst->begin);
 			lst = lst->begin;

@@ -6,7 +6,7 @@
 /*   By: gmonein <gmonein@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/29 01:51:25 by gmonein           #+#    #+#             */
-/*   Updated: 2016/12/03 01:41:15 by gmonein          ###   ########.fr       */
+/*   Updated: 2016/12/07 04:16:35 by gmonein          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ static char		**ft_make_char_map(int size, t_ligne sct, int len_last)
 				map[size][i] = ' ';
 			else if (i == sct.start[size])
 				map[size][i] = '/';
+			else if (i >= sct.d_start[size] && i <= sct.d_end[size])
+				map[size][i] = '|';
 			else if (i > sct.start[size])
 				map[size][i] = '*';
 			if (i == sct.end[size])
@@ -76,10 +78,20 @@ static void		ft_print_twod(char **map, int size, int len_last)
 	}
 }
 
-void			ft_print_map(t_list *lst, int size, t_ligne sct, int len_last)
+void			ft_print_map(t_list *lst, int size, t_ligne sct)
 {
 	char		**map;
+	int			len_last;
+	int			i;
 
+	i = 0;
+	while (sct.end[i + 1])
+	{
+		i++;
+		if (sct.d_start[i] < 999999)
+			printf("i = %d\nsct.d_start = %d\nsct._d_end = %d\n", i, sct.d_start[i], sct.d_end[i]);
+	}
+	len_last = sct.end[i];
 	size *= 2;
 	map = ft_make_char_map(size, sct, len_last);
 	map = ft_init_map(lst, map);

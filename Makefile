@@ -6,7 +6,7 @@
 #    By: jpeguet <jpeguet@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/12/02 00:21:46 by jpeguet           #+#    #+#              #
-#    Updated: 2016/12/03 02:04:51 by gmonein          ###   ########.fr        #
+#    Updated: 2016/12/07 03:38:32 by gmonein          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,7 @@ SRCS = ./srcs/ft_place.c \
 		./srcs/ft_print_map.c \
 		./srcs/ft_utility.c \
 		./srcs/ft_bzero.c \
+		./bit_p.c \
 		./srcs/bits_sas.c \
 
 OBJS = $(SRCS:.c=.o)
