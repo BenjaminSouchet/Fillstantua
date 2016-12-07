@@ -27,8 +27,10 @@ SRCS = ./srcs/ft_place.c \
 		./srcs/ft_print_map.c \
 		./srcs/ft_utility.c \
 		./srcs/ft_bzero.c \
-		./bit_p.c \
-		./srcs/bits_sas.c \
+		./srcs_sas/ft_place.c \
+		./srcs_sas/ft_print_map.c \
+		./srcs_sas/bits_sas.c \
+		./srcs_sas/bit_p.c \
 
 OBJS = $(SRCS:.c=.o)
 
