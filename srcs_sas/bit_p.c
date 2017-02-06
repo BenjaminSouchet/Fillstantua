@@ -46,8 +46,8 @@ void		print_line(int nb_pts, int size_door, int line, int lines, t_ligne *map)
 {
 	if (line >= (lines - size_door))
 	{
-		map->d_start[line] = ((nb_pts - 1) / 2) - ((size_door - 1) / 2) + 1 + (lines - line);
-		map->d_end[line] = map->d_start[line] + size_door - 1;
+		map->d_start[line] = ((nb_pts - 1) / 2) - ((size_door - 1) / 2) + (lines - line) + 1;
+		map->d_end[line] = map->d_start[line] + size_door - 2;
 	}
 	else
 	{

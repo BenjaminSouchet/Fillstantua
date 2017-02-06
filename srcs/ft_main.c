@@ -6,7 +6,7 @@
 /*   By: gmonein <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/01 19:42:47 by gmonein           #+#    #+#             */
-/*   Updated: 2016/12/07 05:48:28 by gmonein          ###   ########.fr       */
+/*   Updated: 2017/02/06 09:57:46 by gmonein          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int				main(int argc, char **argv)
 	}
 	else
 	{
-			size = solver(tab, lst->begin, ft_map_min(lst->begin));
+		size = solver(tab, lst->begin, ft_map_min(lst->begin));
 		ft_print_map(lst->begin, size);
 	}
 	return (0);

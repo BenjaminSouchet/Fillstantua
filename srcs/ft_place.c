@@ -6,7 +6,7 @@
 /*   By: gmonein <gmonein@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/27 01:26:19 by gmonein           #+#    #+#             */
-/*   Updated: 2016/12/03 01:52:17 by gmonein          ###   ########.fr       */
+/*   Updated: 2017/02/06 10:00:16 by gmonein          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,10 @@ static int			ft_can_i(UI *tab, t_list *tetris, int size)
 		return (-2);
 	if (tetris->y + tetris->data.height > size)
 		return (-1);
-	if ((tab[tetris->y] & (tetris->itetri[0] >> tetris->x)) > 0)
-		return (0);
-	if ((tab[tetris->y + 1] & (tetris->itetri[1] >> tetris->x)) > 0)
-		return (0);
-	if ((tab[tetris->y + 2] & (tetris->itetri[2] >> tetris->x)) > 0)
-		return (0);
-	if ((tab[tetris->y + 3] & (tetris->itetri[3] >> tetris->x)) > 0)
+	if (((tab[tetris->y] & (tetris->itetri[0] >> tetris->x)) > 0)
+	|| ((tab[tetris->y + 1] & (tetris->itetri[1] >> tetris->x)) > 0)
+	|| ((tab[tetris->y + 2] & (tetris->itetri[2] >> tetris->x)) > 0)
+	|| ((tab[tetris->y + 3] & (tetris->itetri[3] >> tetris->x)) > 0))
 		return (0);
 	return (1);
 }
